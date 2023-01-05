@@ -10,9 +10,6 @@ public class AnimationAndMovementController : MonoBehaviour
     CharacterController characterController;
     Animator animator;
 
-    // int IsWalkingHash;
-    // int IsRunningHash;
-
     Vector2 currentMovementInput;
     Vector3 currentMovement;
     Vector3 currentRunMovement;
@@ -27,9 +24,6 @@ public class AnimationAndMovementController : MonoBehaviour
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-
-        // IsWalkingHash = Animator.StringToHash("IsWalking");
-        // IsRunningHash = Animator.StringToHash("IsRunning");
 
         playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
@@ -69,7 +63,7 @@ public class AnimationAndMovementController : MonoBehaviour
     void handleAnimation()
     {
         bool IsWalking = animator.GetBool("IsWalking");
-        // bool IsRunning = animator.GetBool("IsRunning");
+        bool IsRunning = animator.GetBool("IsRunning");
 
         if (IsMovementPressed && !IsWalking){
             animator.SetBool("IsWalking", true);
@@ -79,13 +73,13 @@ public class AnimationAndMovementController : MonoBehaviour
             animator.SetBool("IsWalking", false);
         }
 
-        // if ((IsMovementPressed && IsRunPressed) && !IsRunning){
-        //     animator.SetBool("IsRunningHash", true);
-        // }
+        if ((IsMovementPressed && IsRunPressed) && !IsRunning){
+            animator.SetBool("IsRunning", true);
+        }
 
-        // else if ((!IsMovementPressed || !IsRunPressed) && IsRunning){
-        //     animator.SetBool("IsRunningHash", false);
-        // }
+        else if ((!IsMovementPressed || !IsRunPressed) && IsRunning){
+            animator.SetBool("IsRunning", false);
+        }
 
     }
 
